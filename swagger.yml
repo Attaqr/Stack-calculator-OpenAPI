@@ -1,0 +1,164 @@
+openapi: 3.0.0
+info:
+  title: "RP Flask REST API"
+  description: "An stackcalculator API"
+  version: "1.0.0"
+
+servers:
+  - url: "/calc"
+
+paths:
+  /{id}/push/{n}:
+    post:
+      operationId: "app.StackCalc.push"
+      tags:
+        - "Calculator"
+      summary: "Pushes a number onto the stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: n
+          description: "The number to be pushed onto the stack"
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: "Successfully pushed number onto stack"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  /{id}/pop:
+    post:
+      operationId: "app.StackCalc.pop"
+      tags:
+        - "Calculator"
+      summary: "Pops a number from the stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully popped number from stack"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  /{id}/add:
+    post:
+      operationId: "app.StackCalc.add"
+      tags:
+        - "Calculator"
+      summary: "Removes last 2 numbers adds them together and pushes result to stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully added last 2 numbers"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  /{id}/subtract:
+    post:
+      operationId: "app.StackCalc.subtract"
+      tags:
+        - "Calculator"
+      summary: "Removes last 2 numbers subtracts them and pushes result to stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully subtracted last 2 numbers"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  /{id}/multiply:
+    post:
+      operationId: "app.StackCalc.multiply"
+      tags:
+        - "Calculator"
+      summary: "Removes last 2 numbers multiplies them and pushes result to stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully multiplied last 2 numbers"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  /{id}/divide:
+    post:
+      operationId: "app.StackCalc.divide"
+      tags:
+        - "Calculator"
+      summary: "Removes last 2 numbers divides them and pushes result to stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully divided last 2 numbers"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+  /{id}/peek:
+    get:
+      operationId: "app.StackCalc.peek"
+      tags:
+        - "Calculator"
+      summary: "Returns the top value on the stack"
+      parameters:
+        - in: path
+          name: id
+          description: "The ID of the stack calculator instance"
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Successfully returned top value on stack"
+          content:
+            application/json:
+              schema:
+                type: integer
+
+          

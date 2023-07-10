@@ -1,0 +1,87 @@
+import connexion
+import sqlite3
+
+class StackCalc:
+    def __init__(self):
+        connector = sqlite3.connect('stack.db')
+        cursor = connector.cursor()
+        cursor.execute('CREATE TABLE IF NOT EXISTS stacks (id TEXT PRIMARY KEY, value INTEGER)')
+                
+        self.stacks = {}
+    
+    def push(self, id, n):
+        if id not in self.stacks:
+            self.stacks[id] = []
+        self.stacks[id].append(n)
+        return self.stacks[id][-1]
+    
+    def pop(self, id):
+        if id in self.stacks:
+            self.stacks.pop(id)
+
+    def add(self, id):
+        if id not in self.stacks:
+            return ('There is no stack with this ID')
+        elif len(self.stacks[id]) < 2:
+            return('Stack Underflow')
+        else:  
+            top = self.stacks[id].pop()
+            next = self.stacks[id].pop()
+            result = top + next
+            self.stacks[id].append(result)
+            return result
+    
+    def subtract(self, id):
+        if id not in self.stacks:
+            return ('There is no stack with this ID')
+        elif len(self.stacks[id]) < 2:
+            return('Stack Underflow')
+        else:    
+            top = self.stacks[id].pop()
+            next = self.stacks[id].pop()
+            result = top - next
+            self.stacks[id].append(result)
+            return result
+    
+    def multiply(self, id):
+        if id not in self.stacks:
+            return ('There is no stack with this ID')
+        elif len(self.stacks[id]) < 2:
+            return('Stack Underflow')
+        else:  
+            top = self.stacks[id].pop()
+            next = self.stacks[id].pop()
+            result = top * next
+            self.stacks[id].append(result)
+            return result
+        
+    def divide(self, id):
+        if id not in self.stacks:
+            return ('There is no stack with this ID')
+        elif len(self.stacks[id]) < 2:
+            return('Stack Underflow')
+        else:  
+            top = self.stacks[id].pop()
+            next = self.stacks[id].pop()
+            result = top / next
+            self.stacks[id].append(result)
+            return result
+        
+    def peek(self, id):
+        if id not in self.stacks:
+            return 'There is no stack with this ID'
+        elif not self.stacks[id]:
+            return 'Stack is empty'
+        else:
+            return self.stacks[id][-1]
+
+
+
+    
+app = connexion.FlaskApp(__name__)
+app.add_api("swagger.yml")
+
+StackCalc = StackCalc()
+
+if __name__ == "__main__":
+    app.run(port=8000, debug=True)
